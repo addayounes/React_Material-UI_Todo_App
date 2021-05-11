@@ -15,12 +15,7 @@ function App() {
       setEditableObjct(obj)
   }
 
-  const [Todo, setTodo] = useState([
-    {id: 1, name: 'Workout For 30 Minutes', date: '2021-05-06T21:45', reminder: true, completed: false},
-    {id: 2, name: '1', date: '2025-05-06T23:45', reminder: true, completed: false},
-    {id: 3, name: '2', date: '2019-05-06T22:35', reminder: true, completed: false},
-    {id: 4, name: '3', date: '2099-05-06T11:45', reminder: true, completed: false},
-  ])
+  const [Todo, setTodo] = useState([])
 
   const [sort, setSort] = useState('All')
 
