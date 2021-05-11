@@ -6,32 +6,28 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Paper, Typography } from '@material-ui/core';
 
 
+const DropDownItem = ({itemText, clickFunc, funcArg, ListIcon}) => {
+    return(
+        <ListItem button onClick={() => clickFunc(funcArg)}>
+            <ListItemIcon>
+                <ListIcon />
+            </ListItemIcon>
+            <ListItemText primary={itemText} />
+        </ListItem>
+    )
+}
+
 const SortList = ({cls, sortTodosPer}) => {
     return (
         <List className={cls}>
-            <ListItem button onClick={() => sortTodosPer('Date')}>
-                <ListItemIcon>
-                    <DateRangeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Date" />
-            </ListItem>
-            <ListItem button onClick={() => sortTodosPer('Reminder')}>
-                <ListItemIcon>
-                    <AddAlertIcon />
-                </ListItemIcon>
-                <ListItemText primary="Reminder" />
-            </ListItem>
-            <ListItem button onClick={() => sortTodosPer('Completed')}>
-                <ListItemIcon>
-                    <CheckCircleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Completed" />
-            </ListItem>
+            <DropDownItem itemText="Date" clickFunc={sortTodosPer} funcArg="Date" ListIcon={DateRangeIcon} />
+            <DropDownItem itemText="Reminder" clickFunc={sortTodosPer} funcArg="Reminder" ListIcon={AddAlertIcon} />
+            <DropDownItem itemText="Completed" clickFunc={sortTodosPer} funcArg="Completed" ListIcon={CheckCircleIcon} />
         </List>
     )
 }
 
-const Sort = ({Todo, sortString}) => {
+const Sort = ({Todo, sortString, forceUpdate}) => {
     const [isOpen, setIsOpen] = useState(false)
     const handleSortClick = () => {
         setIsOpen(!isOpen)
@@ -41,6 +37,7 @@ const Sort = ({Todo, sortString}) => {
         if(s==='Completed') Todo.sort((a, b) => b.completed - a.completed)
         if(s==='Reminder') Todo.sort((a, b) => b.reminder - a.reminder)
         setIsOpen(false)
+        forceUpdate() // to update the component after sorting tasks so it displays the sorted tasks
     }
     const useStyles = makeStyles(theme => ({
         sortPaper: {

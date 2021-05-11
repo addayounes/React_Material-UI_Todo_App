@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Paper } from '@material-ui/core'
-import React from 'react'
+import React, { useReducer } from 'react'
 import SortTasks from './SortTasks';
 import Task from './Task';
 import NoTodo from "./NoTodo"
@@ -7,6 +7,7 @@ import Sort from './Sort';
 
 
 const Tasks = ({toDos, sortTodos, deleteTodo, completeTodo, setReminder, editTodo, sortString}) => {
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
     const useStyles = makeStyles((theme) => ({
         tasksPaper: {
           padding: theme.spacing(2, 1),
@@ -33,7 +34,7 @@ const Tasks = ({toDos, sortTodos, deleteTodo, completeTodo, setReminder, editTod
                         <SortTasks sortTodos={sortTodos} Class={classes.sortTasks} />
                     </Grid>
                     <Grid item>
-                        <Sort Todo={toDos} sortString={sortString} />
+                        <Sort Todo={toDos} sortString={sortString} forceUpdate={forceUpdate} />
                     </Grid>
                     <Grid item>
                         {
